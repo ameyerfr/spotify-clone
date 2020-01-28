@@ -1,0 +1,13 @@
+<h2>Three random bullshit quotes ...</h2>
+{{#each quotes}}
+<div class="bs-card">
+  <p>
+    <span class="bigquote">&ldquo;</span>
+    <span class="quote">{{this.quote}}</span>
+    <span class="bigquote">&rdquo;</span>
+  </p>
+  {{#if this.source}}
+    <div class="source"><a href="{{this.source}}" target="_blank">check source...</a></div>
+  {{/if}}
+</div>
+{{/each}}

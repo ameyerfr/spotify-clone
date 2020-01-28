@@ -1,0 +1,23 @@
+.bs-card {
+  margin:20px 50px;
+  border:2px solid #171738;
+  font-size: 1.5em;
+  box-shadow: 10px 5px 5px #171738;
+  padding:20px;
+}
+
+.bigquote {
+  font-size: 3rem;
+}
+
+.quote {
+  font-style: italic;
+}
+
+.source {
+  padding: 8px 25px;
+  font-size: 1rem;
+}
+
+.source a { color:#171738; }
+.source a:hover { color:#FFF07C; }
