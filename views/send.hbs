@@ -1,16 +1,18 @@
 <h2>Submit your own</h2>
-<form id="send-form" action="#" method="post">
+
+<form id="send-form" action="/newquote" method="POST">
+
   <div class="forminput">
     <label for="quote">Made up BS</label>
-    <input type="textarea" name="quote" value="">
+    <textarea id="quote" name="quote"></textarea>
   </div>
 
   <div class="forminput">
-    <label for="quote">Debunk source</label>
-    <input type="text" name="source" value="">
+    <label for="source">Debunk URL</label>
+    <input type="text" id="source" name="source" placeholder="Optional url">
   </div>
 
   <div class="forminput">
-    <button type="submit" name="button">Send your bullshit !</button>
+    <button type="submit" id="send-form-submit" name="button">Send your bullshit !</button>
   </div>
 </form>

@@ -28,6 +28,7 @@ server.use(express.static(path.join(__dirname, "public")));
 server.set("views", path.join(__dirname, "views"));
 hbs.registerPartials(path.join(__dirname, "views/partials"));
 server.set("view engine", "hbs");
+server.use(express.urlencoded({ extended: true }));
 
 // Setup routes
 server.get("/", async (req, res) => {
@@ -53,7 +54,8 @@ server.get("/", async (req, res) => {
 
 server.get("/send", (req, res) => {
   const data = {
-    css : ["send"]
+    css : ["send"],
+    scripts : ["formValidator"]
   }
 
   res.render("send", data)
@@ -65,6 +67,23 @@ server.get("/about", (req, res) => {
   }
 
   res.render("about", data)
+})
+
+server.post("/newquote", (req, res) => {
+
+  let newRecord = { quote : req.body.quote }
+  if ( req.body.source ) { newRecord.source = req.body.source }
+
+  // Insert new BS quote into DB
+  Bullshit.create(newRecord)
+  .then((result) => {
+    console.log("Successfully inserted into DB : ", result);
+
+    // Then back to the /home page
+    res.redirect('/');
+
+  }).catch((error) => { console.log("ERROR : ", error) })
+
 })
 
 server.get("*", (req, res) => {
