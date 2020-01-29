@@ -1,26 +1,16 @@
 const PORT = 3000;
-const mongoose = require('mongoose');
-const data = require('./data/bsQuotes.js'); // Import of the data
-const Bullshit = require('./models/Bullshit.model'); // Import of the model
 
 const express = require ("express");
 const path = require("path");
 const server = express();
 const hbs = require("hbs"); // Install through npm install hbs
-const bsQuotesData = require(path.join(__dirname, "data/bsQuotes.js"));
 
-// Connection to the database "recipeApp"
-mongoose
-  .connect('mongodb://localhost/bullshit-generator', {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-  })
-  .then((x) => {
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
-  })
-  .catch(err => console.error('Error connecting to mongo', err));
+const Bullshit = require('./models/Bullshit.model'); // Import of the model
+const bsQuotesData = require(path.join(__dirname, "./data/bsQuotes.js")); // Seed data
+
+// Connection to the database
+require('./config/dbConnexion.js');
+
 
 // Populate DB only the first time
 Bullshit.find().
