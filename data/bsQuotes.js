@@ -1,4 +1,5 @@
-const bsQuotes = [
+module.exports =
+[
   {quote:"You swallow 3 spiders (or some other number) in your sleep every year."},
   {
     quote : "The Saharah desert is the biggest desert on earth",
@@ -32,6 +33,4 @@ const bsQuotes = [
     quote : "An apple a day keeps the doctor away",
     source : "https://www.medicalnewstoday.com/articles/291683.php#4"
   }
-]
-
-module.exports = bsQuotes;
+];
