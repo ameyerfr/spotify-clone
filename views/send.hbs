@@ -1,18 +1,19 @@
-<h2>Submit your own</h2>
+<h2>Submit your content</h2>
 
-<form id="send-form" action="/newquote" method="POST">
+<form id="send-form" action="/new" method="POST">
 
   <div class="forminput">
-    <label for="quote">Made up BS</label>
-    <textarea id="quote" name="quote"></textarea>
+    <label for="artist-name">Artist name</label>
+    <input type="text" id="artist-name" name="artist-name">
   </div>
 
   <div class="forminput">
-    <label for="source">Debunk URL</label>
-    <input type="text" id="source" name="source" placeholder="Optional url">
+    <label for="artist-albums">Artist albums</label>
+    <textarea id="artist-albums" name="artist-albums" placeholder="Albums separated by commas ie : Album1,Album2"></textarea>
+
   </div>
 
   <div class="forminput">
-    <button type="submit" id="send-form-submit" name="button">Send your bullshit !</button>
+    <button type="submit" id="send-form-submit" name="button">Submit !</button>
   </div>
 </form>
