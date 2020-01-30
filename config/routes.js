@@ -1,40 +1,32 @@
 const express = require("express");
 const router  = new express.Router();
 
+// Import the controller
+const artistController = require('../controllers/artist_controller.js')
+const albumController = require('../controllers/album_controller.js')
+
 router.get("/", async (req, res) => {
-
-  // // Get the records
-  // Bullshit.find({})
-  // .then((results) => {
-  //
-  //   // Randomize results
-  //   results.sort(() => Math.random() - 0.5);
-  //
-  //   const data = {
-  //     css : ["home"],
-  //     quotes : results.slice(0,3) // Only first 3 results
-  //   }
-  //
-  //   // Render view
-  //   res.render("home", data) // Data needs to be an object
-  //
-  // }).catch((error) => { reject(error) })
-
-  const data = {
-    css : ["home"]
-  }
-  res.render("home", data) // Data needs to be an object
-
-
+  res.render("home", { css : ["home"] })
 })
 
-router.get("/send", (req, res) => {
+router.get("/all-artists", async (req, res) => {
+  let artists = await artistController.getAllArtists();
+
+  const data = {
+    css : ["home"],
+    artists : artists
+  }
+
+  res.render("all-artists", data)
+});
+
+router.get("/create", (req, res) => {
   const data = {
     css : ["send"],
     scripts : ["formValidator"]
   }
 
-  res.render("send", data)
+  res.render("create", data)
 })
 
 router.get("/about", (req, res) => {
@@ -45,20 +37,37 @@ router.get("/about", (req, res) => {
   res.render("about", data)
 })
 
-router.post("/new", (req, res) => {
+router.post("/new", async (req, res) => {
 
-  let newRecord = { quote : req.body.quote }
-  if ( req.body.source ) { newRecord.source = req.body.source }
+  let newArtist = new artistController.Artist({ name : req.body.artistName });
+  let artistAlbums = req.body.artistAlbums !== '' ? req.body.artistAlbums.split(',') : [];
+  let newAlbumIds = [];
 
-  // Insert new BS quote into DB
-  Bullshit.create(newRecord)
-  .then((result) => {
-    console.log("Successfully inserted into DB : ", result);
+  artistAlbums.forEach(album => {
 
-    // Then back to the /home page
-    res.redirect('/');
+    let newAlbum = new albumController.Album({
+      title : album,
+      artist : newArtist._id
+    });
 
-  }).catch((error) => { console.log("ERROR : ", error) })
+    newAlbumIds.push(newAlbum._id)
+
+    newAlbum.save(function (err) {
+      if (err) return handleError(err);
+      console.log("Album inserted into DB : ", newAlbum);
+    });
+
+  })
+
+  newArtist.albums = newAlbumIds;
+
+  newArtist.save(function (err) {
+    if (err) return handleError(err);
+    console.log("Artist inserted into DB : ", newArtist);
+  });
+
+  // Then back to the /home page
+  res.redirect('/');
 
 })
 

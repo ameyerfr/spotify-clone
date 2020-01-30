@@ -1,3 +1,4 @@
+/*
 const sendForm = document.getElementById("send-form");
 const formSubmit = document.getElementById("send-form-submit")
 formSubmit.onclick = function(e) {
@@ -15,3 +16,4 @@ formSubmit.onclick = function(e) {
   sendForm.style.display = 'none';
   alert("Thanks for your contribution !");
 }
+*/
