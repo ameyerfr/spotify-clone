@@ -11,10 +11,19 @@ router.get("/", async (req, res) => {
 
 router.get("/all-artists", async (req, res) => {
   let artists = await artistController.getAllArtists();
+  let artistsObjects = [];
 
+  for (const artist of artists) {
+    let obj = artist.toObject();
+    let albums = await albumController.Album.find({ artist:obj._id })
+    obj.total_albums = albums.length;
+    obj.albums_list = albums;
+    artistsObjects.push(obj)
+  }
+  
   const data = {
     css : ["home"],
-    artists : artists
+    artists : artistsObjects
   }
 
   res.render("all-artists", data)

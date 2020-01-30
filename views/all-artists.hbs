@@ -1,4 +1,13 @@
 <h2>All artists</h2>
 {{#each artists}}
-  <p>{{this.name}}</p>
+  <div class="artist-card">
+    <p>{{this.name}}</p>
+    <p>
+      {{#each this.albums_list}}
+        <span class="album-name">{{this.title}}</span>
+      {{/each}}
+    </p>
+    <span>Number of albums : {{this.total_albums}}</span>
+  </div>
+  <hr>
 {{/each}}
